@@ -200,6 +200,6 @@ Eight advanced features are implemented; the best six count (cap 60). Implementi
 
 ## 13. Open questions
 
-1. Can the hosted per-user budget be created with the workspace's own role, or does it require operator setup? (Verify in Phase 0.)
+1. Can the hosted per-user budget be created with the workspace's own role, or does it require operator setup? Upstream docs: an organization owner or admin can, through a service key. Live confirmation pending in `docs/READINESS.md`.
 2. Which open-weight models on hosted Otari are most reliable for structured JSON at low latency? (Measure in Phase 0.)
 3. Is GitHub MCP reachable from hosted Otari (Streamable HTTP + auth), or is DeepWiki MCP the only option for the MVP?

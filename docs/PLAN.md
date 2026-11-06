@@ -228,17 +228,19 @@ A separate 3–5 min Otari feedback recording covers what worked, what didn't, w
 
 ## 11. Risk register
 
-| ID | Risk | Likelihood | Mitigation | Fallback |
-|---|---|---|---|---|
-| R1 | Hosted guardrail requires vendor key | High | Get a vendor key (free tier) on day 0 | Keep deterministic sanitizer; rely on other 7 features for cap |
-| R2 | Routing policy needs BYOK | High | Add one provider key to workspace day 0 | Client-side cascade; fallback points at risk |
-| R3 | Code-exec 402/pricing issue | Medium | Verify day 0; report issue with request ID | MCP + web + budgets fill cap |
-| R4 | Per-user budget needs operator role | Medium | Ask Mozilla AI mentors early (Discord) | Budgets + 6 others fill cap |
-| R5 | MCP reachability from hosted | Low (DeepWiki verified by others) | Use DeepWiki MCP | Skip MCP, cap still reachable |
-| R6 | JSON reliability of open models | Medium | Model selection by measured validity; one repair round | Degrade to `UNVERIFIED` |
-| R7 | Scope creep | High | MVP list frozen after Phase 0 | Cut stretch items first |
-| R8 | Credits exhausted near deadline | Low | Separate keys with ceilings; dry-run mode | Recorded video + receipts |
-| R9 | Demo flakiness | Medium | Pre-seeded demo, cached receipts shown alongside live run | Video |
+Status as of Nov 6, from upstream docs only. `docs/READINESS.md` holds the live result.
+
+| ID | Risk | Likelihood | Mitigation | Fallback | Status |
+|---|---|---|---|---|---|
+| R1 | Hosted guardrail requires vendor key | High | Get a vendor key (free tier) on day 0 | Keep deterministic sanitizer; rely on other 7 features for cap | Open. Depends on whether hosted lists a profile. Otherwise define a vendor guardrail in the dashboard |
+| R2 | Routing policy needs BYOK | High | Add one provider key to workspace day 0 | Client-side cascade; fallback points at risk | Lowered. Docs say entries without BYOK use the balance. An invalid key is enough to force the fallback |
+| R3 | Code-exec 402/pricing issue | Medium | Verify day 0; report issue with request ID | MCP + web + budgets fill cap | Open. Check `otari_code_execution` in `/tools`, then run the spike |
+| R4 | Per-user budget needs operator role | Medium | Ask Mozilla AI mentors early (Discord) | Budgets + 6 others fill cap | Lowered. Org owner or admin can do it with a service key, no operator needed |
+| R5 | MCP reachability from hosted | Low (DeepWiki verified by others) | Use DeepWiki MCP | Skip MCP, cap still reachable | New step: enable `request_mcp_servers_allowed` on the workspace |
+| R6 | JSON reliability of open models | Medium | Model selection by measured validity; one repair round | Degrade to `UNVERIFIED` | Open. Measured by `scripts/spikes/bakeoff.py` |
+| R7 | Scope creep | High | MVP list frozen after Phase 0 | Cut stretch items first | Scope freezes when the Phase 0 gate is met |
+| R8 | Credits exhausted near deadline | Low | Separate keys with ceilings; dry-run mode | Recorded video + receipts | Open. Key ceilings set during setup |
+| R9 | Demo flakiness | Medium | Pre-seeded demo, cached receipts shown alongside live run | Video | Open |
 
 ---
 

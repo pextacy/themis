@@ -1,0 +1,14 @@
+{
+  "id": "s1",
+  "class": "slop",
+  "expected_kind": "security_report",
+  "title": "CRITICAL: remote code execution in tinyhttp",
+  "body": "A critical RCE exists in `HttpServer.execute_template()` in `tinyhttp/server/render.py`, tracked as CVE-2026-99991. Attackers gain full control by sending a crafted header. This affects all versions before 9.4.0.",
+  "expected_claim_types": [
+    "symbol_exists",
+    "file_exists",
+    "cve_reference",
+    "version_exists",
+    "behavior"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "s2",
+  "class": "slop",
+  "expected_kind": "bugfix_pr",
+  "title": "Fix memory leak in ConnectionPool",
+  "body": "This PR fixes a severe memory leak in `ConnectionPool._release` by properly closing sockets, reducing memory use by 43%. Comprehensive tests were added.",
+  "expected_claim_types": [
+    "symbol_exists",
+    "behavior",
+    "performance",
+    "test_added"
+  ]
+}

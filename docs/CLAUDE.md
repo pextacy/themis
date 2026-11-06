@@ -107,12 +107,12 @@ Run `ruff`, `mypy` and `pytest -q` before every commit. Live tests are opt-in an
 ## 6. Otari integration rules
 
 - Endpoints used: `POST /chat/completions`, `POST /messages` (streamed, for MCP activity), `GET /models`, `GET /tools`.
-- Always send `user` = the THEMIS contributor key (`gh:<numeric_github_id>`) so per-contributor budgets and usage attribution work. Never send usernames or emails.
+- Always name the contributor as `gh:<numeric_github_id>` so per-contributor budgets and usage attribution work: the `user` field on `/chat/completions`, `metadata.user_id` on `/messages`. This requires a **service key**; a normal key is refused with 403 when `user` names anyone else. Never send usernames or emails.
 - Always send `Otari-Conversation-Id: themis-<submission_id>` so one submission reads as one session in Otari Activity.
-- Built-in tools are declared **type-only** on hosted Otari (extra keys such as `max_uses` were rejected by the hosted validator). Read tool results from `otari_tool_calls`.
-- MCP: use inline `mcp_servers` with the streamed Messages API; non-streaming Chat Completions may hide MCP activity. Pair `mcp_tool_result` to the preceding `mcp_tool_use` by stream order.
-- Handle these gateway outcomes explicitly (see `otari/errors.py`): `401` fatal config, `402` funding/pricing, `403 guardrail_violation`, budget refusal (`budget_exceeded`), `429` retry with `Retry-After`, `5xx/504` fallback.
-- Read and persist response headers: `Otari-Request-ID`, `Otari-Provider`, `Otari-Fallback`, guardrail verdict header.
+- Built-in tools are declared **type-only** on hosted Otari (extra keys such as `max_uses` were reported rejected by the hosted validator, though upstream docs now describe `max_uses`). Read tool results from `otari_tool_calls`, never from the model's account of them.
+- MCP: use inline `mcp_servers` with the streamed Messages API and the header `anthropic-beta: mcp-client-2025-11-20`; without it the gateway runs the call but emits no activity blocks. Inline servers need `request_mcp_servers_allowed` on the workspace. Pair `mcp_tool_result` to the preceding `mcp_tool_use` by stream order.
+- Map refusals by the `Otari-Error-Code` header or body `code`, never by status alone or by `detail` text (see `otari/errors.py`): `401` fatal config, `402 insufficient_funds` / `pricing_required`, `403 guardrail_violation`, `403 budget_exceeded`, `429` retry with `Retry-After`, `502` on a `block` guardrail that cannot be evaluated, other `5xx/504` fallback. `/messages` errors use the Anthropic envelope with `code` beside it.
+- Read and persist response headers: `Otari-Request-ID`, `Otari-Provider`, `Otari-Model` (the model that answered), `Otari-Attempt-Count`, `Otari-Fallback`, `Otari-Guardrails`. Cost is `usage.cost_usd`, a string, absent when unpriced.
 - Verify every assumption in this section with `themis doctor` against the live gateway; if the gateway behaves differently, update `DOCS.md §7` and `docs/OTARI_FEEDBACK.md` instead of guessing.
 
 ---

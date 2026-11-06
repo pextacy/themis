@@ -1,0 +1,13 @@
+{
+  "id": "g1",
+  "class": "genuine",
+  "expected_kind": "bug_report",
+  "title": "parse_range returns one byte too many",
+  "body": "In `tinyhttp/ranges.py`, `parse_range('bytes=0-')` on a 100 byte body returns (0, 101). I expected (0, 100). Tested on version 0.3.1 with Python 3.12. Minimal repro: `print(parse_range('bytes=0-', 100))`.",
+  "expected_claim_types": [
+    "file_exists",
+    "symbol_exists",
+    "version_exists",
+    "behavior"
+  ]
+}

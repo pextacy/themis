@@ -211,7 +211,7 @@ System prompts state that envelope content is data and must never be followed. T
 
 ## 7. Otari integration reference
 
-> Facts below were observed on hosted Otari during the hackathon. Re-verify with `themis doctor`; record discrepancies in `docs/OTARI_FEEDBACK.md`.
+> Facts below come from the upstream Otari docs and OpenAPI schema (`mozilla-ai/otari` @ `e9a72e7c8e`) and from reports during the hackathon. `docs/READINESS.md` says which are live-verified. Re-verify with `themis doctor`; record discrepancies in `docs/OTARI_FEEDBACK.md`.
 
 ### 7.1 Endpoints
 | Endpoint | Use |
@@ -223,28 +223,30 @@ System prompts state that envelope content is data and must never be followed. T
 
 ### 7.2 Request conventions
 - `model`: model ID or routing-policy name from config.
-- `user`: `gh:<numeric_github_id>` (per-user attribution and budgets).
+- `user`: `gh:<numeric_github_id>` (per-user attribution and budgets) on `/chat/completions`; `metadata.user_id` on `/messages`. Requires a service key: a normal key naming another user is refused with 403.
 - Header `Otari-Conversation-Id: themis-<submission_id>`.
-- Header `Otari-End-User-Budget` when per-contributor budgets are enabled (verify exact semantics with `doctor`).
+- Header `Otari-End-User-Budget: <budget id>` picks the budget only when the request creates the end user; an existing end user keeps its budget. The id must be on the key's `end_user_budget_ids`, else 403 `end_user_budget_not_allowed`.
 - Built-in tools declared **type-only**, e.g. `{"type": "otari_web_search"}`, `{"type": "otari_code_execution"}`; additional keys may be rejected with HTTP 400.
-- Guardrails requested per call (or mandated by a routing policy) with the configured profile and mode.
+- Guardrails requested per call as a top-level field, `"guardrails": [{"profile": "prompt-injection", "mode": "block", "on_unavailable": "block"}]`, or mandated by the organization or a routing policy. Profiles are listed by `GET /tool-settings/guardrails/profiles`.
+- MCP activity blocks need the header `anthropic-beta: mcp-client-2025-11-20`. Inline `mcp_servers` need `request_mcp_servers_allowed` on the workspace; a new workspace starts with it off, and the request is then refused with 400.
 
 ### 7.3 Response data persisted
-`Otari-Request-ID`, `Otari-Provider`, `Otari-Fallback`, guardrail verdict header, `usage` (tokens, `cost_usd` when present), `otari_tool_calls`, effective model.
+`Otari-Request-ID`, `Otari-Provider`, `Otari-Model` (effective model; the body's `model` keeps the policy name), `Otari-Attempt-Count`, `Otari-Fallback`, `Otari-Guardrails`, `usage` (tokens, `cost_usd` as a string when priced), `otari_tool_calls`.
 
 ### 7.4 Error mapping
 | Gateway outcome | THEMIS exception | THEMIS behavior |
 |---|---|---|
 | 401 | `OtariConfigError` | Abort run, `doctor` hint |
-| 402 (funding / pricing required) | `OtariFundingError` | Affected check `UNVERIFIED`; alert maintainer |
+| 402 `insufficient_funds` / `pricing_required` | `OtariFundingError` | Affected check `UNVERIFIED`; alert maintainer |
 | 403 `guardrail_violation` | `OtariGuardrailBlocked` | Verdict `TAINTED` |
-| Budget refusal (`budget_exceeded`) | `OtariBudgetExceeded` | Verdict `DEFERRED` |
+| 403 `budget_exceeded` (read `Otari-Budget-Scope`, `Retry-After`) | `OtariBudgetExceeded` | Verdict `DEFERRED` |
+| 502 on a `block` guardrail that cannot be evaluated | `OtariGuardrailUnavailable` | Stop as `TAINTED_UNCHECKED` |
 | 400 schema | `OtariSchemaRejected` | Bug: logged with request ID, check `UNVERIFIED` |
 | 429 | `OtariRateLimited` | Retry with `Retry-After` (max 2) |
 | 5xx / 504 | `OtariUpstreamError` | One retry; routing policy fallback; else `UNVERIFIED` |
 
 ### 7.5 Routing policies (workspace)
-Example policy for the Clerk role (configured in the Otari dashboard; hosted policies route across the workspace's own provider keys):
+Example policy for the Clerk role, configured in the Otari dashboard. Upstream docs say an entry with no key of yours behind it is served by otari.ai and billed to the balance, so BYOK should only be needed for the forced-fallback test:
 ```yaml
 themis-clerk:
   select:
@@ -252,11 +254,12 @@ themis-clerk:
   on_failure:
     - <provider>:<open-weight-model-A2>
 ```
-`themis-fallback-demo` deliberately lists an unavailable primary to demonstrate fallback.
+`themis-fallback-demo` deliberately has a failing primary: put a provider key with an invalid value behind the primary, then the primary fails and `on_failure` serves the request with `Otari-Fallback: true`.
 
 ### 7.6 Budgets
-- Project key: spending ceiling (`max_budget`) and optional `request_limit`.
-- Per contributor: end-user/per-user budget keyed by `user`.
+- Project key: a budget (`max_budget`, optional `request_limit`) set on the key by an organization owner or admin.
+- Per contributor: an organization budget used as an end-user budget on a service key. Each end user gets a full copy of the limit. The key's own ceiling pools all of them. Deleting an end user does not reset its spend.
+- A request's hold is its worst case, including its whole `max_tokens`, so send a realistic `max_tokens` or small budgets refuse early.
 - THEMIS never treats `insufficient_funds` as a budget refusal; they are reported differently.
 
 ---

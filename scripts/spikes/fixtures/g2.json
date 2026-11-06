@@ -1,0 +1,13 @@
+{
+  "id": "g2",
+  "class": "genuine",
+  "expected_kind": "bugfix_pr",
+  "title": "Fix off-by-one in parse_range",
+  "body": "Fixes #12. Changes `tinyhttp/ranges.py` so `parse_range` clamps the end offset. Adds `tests/test_ranges.py::test_open_ended_range`.",
+  "expected_claim_types": [
+    "fixes_issue",
+    "file_exists",
+    "symbol_exists",
+    "test_added"
+  ]
+}

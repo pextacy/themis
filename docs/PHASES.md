@@ -21,12 +21,12 @@ All times below are UTC.
 **Goal:** know exactly what hosted Otari can do for us before writing product code.
 
 Tasks
-- [ ] Create public repo `themis`, Apache-2.0, minimal README; commit and tag **`baseline-pre-otari`** on `main` (no Otari code).
-- [ ] Create branch `otari-hackathon`.
+- [x] Create public repo `themis`, Apache-2.0, minimal README; commit and tag **`baseline-pre-otari`** on `main` (no Otari code).
+- [x] Create branch `otari-hackathon`.
 - [ ] Otari account, fund workspace, create keys: `themis-dev`, `themis-demo`, `themis-budget-demo`.
 - [ ] Join Otari Discord; introduce the project; ask about per-user budget setup and guardrail vendor requirements.
 - [ ] `GET /models`, `GET /tools`; save redacted catalogs.
-- [ ] Spike scripts (`scripts/spikes/*.py`), one live call each, receipts saved:
+- [ ] Spike scripts (`scripts/spikes/*.py`), one live call each, receipts saved (scripts written and tested offline; items below tick only after a live pass in `docs/READINESS.md`):
   - [ ] chat completion with open-weight model A (JSON output)
   - [ ] chat completion with open-weight model B (different family)
   - [ ] built-in web search + web fetch (type-only declarations)

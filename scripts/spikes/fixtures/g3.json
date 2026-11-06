@@ -1,0 +1,11 @@
+{
+  "id": "g3",
+  "class": "genuine",
+  "expected_kind": "docs_pr",
+  "title": "Document the timeout argument of Client.get",
+  "body": "Adds a section to `docs/client.md` describing the `timeout` argument of `Client.get`. No code changes.",
+  "expected_claim_types": [
+    "file_exists",
+    "symbol_exists"
+  ]
+}

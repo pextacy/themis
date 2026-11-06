@@ -1,0 +1,13 @@
+{
+  "id": "s4",
+  "class": "slop",
+  "expected_kind": "feature_pr",
+  "title": "Enterprise-grade observability layer",
+  "body": "Introduces a world-class observability layer. Uses the new `asyncio.TaskPool.metrics()` API added in Python 3.14 and resolves all performance problems in `tinyhttp/metrics.py`.",
+  "expected_claim_types": [
+    "symbol_exists",
+    "version_exists",
+    "file_exists",
+    "performance"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "s3",
+  "class": "slop",
+  "expected_kind": "dependency_pr",
+  "title": "Harden request parsing with fastjson-secure-parser",
+  "body": "Adds the `fastjson-secure-parser` package to `requirements.txt` to prevent injection attacks in `tinyhttp/parser.py`.",
+  "expected_claim_types": [
+    "dependency_added",
+    "file_exists"
+  ]
+}
