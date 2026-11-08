@@ -135,7 +135,7 @@ def test_doctor_reads_the_table_and_writes_nothing(client: TestClient) -> None:
 
 def test_readiness_parser() -> None:
     summary, rows = readiness_rows(render_table({"chat-a": {"status": "PASS", "calls": []}}))
-    assert summary.startswith("Exit gate") and any(row[0] == "chat-a" for row in rows)
+    assert summary.startswith("Exit gate") and "**" not in summary and any(row[0] == "chat-a" for row in rows)
     assert readiness_rows("")[0] == "No capture yet."
 
 

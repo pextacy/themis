@@ -26,7 +26,9 @@ DETAIL_TABLES = ("claims", "checks", "shield_findings", "otari_calls", "override
 
 def readiness_rows(text: str) -> tuple[str, list[list[str]]]:
     """Split the generated table without rendering its Markdown as HTML."""
-    summary = next((line.strip("* ") for line in text.splitlines() if line.startswith("**")), "No capture yet.")
+    summary = next(
+        (line.replace("**", "").strip() for line in text.splitlines() if line.startswith("**")), "No capture yet."
+    )
     rows = []
     for line in text.splitlines():
         cells = [cell.strip(" `") for cell in line.strip().strip("|").split("|")]

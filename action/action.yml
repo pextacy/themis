@@ -56,3 +56,13 @@ runs:
         if [ -n "$THEMIS_TEST_RESULTS" ]; then results=(--test-results "$THEMIS_TEST_RESULTS"); fi
         uv run --project "$THEMIS_SOURCE" themis action \
           --event "$GITHUB_EVENT_PATH" --event-name "$GITHUB_EVENT_NAME" --repo "$GITHUB_REPOSITORY" "${results[@]}"
+    # The run's store holds only redacted receipts and public submission text. Kept for a week so the
+    # dashboard can show real runs: `gh run download` it, then THEMIS_DB_URL=sqlite:///themis.db themis serve.
+    - name: Keep the run's store
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: themis-store-${{ github.run_id }}
+        path: ${{ runner.temp }}/themis.db
+        retention-days: 7
+        if-no-files-found: ignore
