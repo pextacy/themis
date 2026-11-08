@@ -18,3 +18,14 @@ build/
 *.db
 *.sqlite3
 .DS_Store
+
+# generated per run; evidence/ holds the committed receipts
+receipts/
+
+# internal planning docs stay local; judge-facing docs are tracked
+docs/*
+!docs/CLAUDE.md
+!docs/DOCS.md
+!docs/FEATURES.md
+!docs/OTARI_FEEDBACK.md
+!docs/READINESS.md

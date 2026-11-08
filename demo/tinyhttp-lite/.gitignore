@@ -1,0 +1,6 @@
+__pycache__/
+.pytest_cache/
+.venv/
+uv.lock
+themis-junit.xml
+themis-test-results.json

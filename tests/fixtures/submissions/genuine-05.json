@@ -1,0 +1,17 @@
+{
+  "id": "genuine-05",
+  "class": "genuine",
+  "is_pull_request": true,
+  "title": "Handle empty header values",
+  "body": "Stops `parse_headers` from raising on an empty value.\n\n**AI disclosure:** I used AI tools:\n- Copilot for the first draft, and I reviewed the output myself.\n\nAdded `tests/test_headers.py`.",
+  "changed_files": [
+    "tinyhttp/headers.py",
+    "tests/test_headers.py"
+  ],
+  "expected_kind": "bugfix_pr",
+  "expected_claim_types": [
+    "symbol_exists",
+    "behavior",
+    "test_added"
+  ]
+}

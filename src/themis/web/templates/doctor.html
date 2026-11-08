@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Doctor · THEMIS{% endblock %}
+{% block content %}
+<h1>Doctor</h1>
+<p>{{ summary }}</p>
+<p>This page shows the last <code>themis evidence capture</code>. It makes no live calls.</p>
+<div class="scroll"><table>
+  <thead><tr><th scope="col">Item</th><th scope="col">Kind or result</th><th scope="col">State or request ID</th><th scope="col">Reason</th></tr></thead>
+  <tbody>{% for row in rows %}<tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>{% else %}<tr><td colspan="4">No capture yet.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endblock %}

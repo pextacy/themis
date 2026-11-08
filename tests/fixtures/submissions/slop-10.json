@@ -1,0 +1,14 @@
+{
+  "id": "slop-10",
+  "class": "slop",
+  "is_pull_request": false,
+  "title": "Application crashes on startup",
+  "body": "The app crashes on startup with `FatalInitError` from `tinyhttp.bootstrap.init_runtime()` on version 7.0.0.",
+  "changed_files": [],
+  "expected_kind": "bug_report",
+  "expected_claim_types": [
+    "symbol_exists",
+    "version_exists",
+    "behavior"
+  ]
+}

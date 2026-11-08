@@ -1,0 +1,10 @@
+{
+  "id": "genuine-08",
+  "class": "genuine",
+  "is_pull_request": false,
+  "title": "Is HTTP/2 planned? \ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f",
+  "body": "Thanks for the library \ud83d\udc69\u200d\ud83d\udcbb. Is HTTP/2 support on the roadmap?",
+  "changed_files": [],
+  "expected_kind": "question",
+  "expected_claim_types": []
+}

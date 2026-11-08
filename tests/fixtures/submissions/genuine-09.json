@@ -1,0 +1,15 @@
+{
+  "id": "genuine-09",
+  "class": "genuine",
+  "is_pull_request": false,
+  "title": "Header injection through CRLF in set_header",
+  "body": "`Response.set_header` in `tinyhttp/response.py` does not strip CR or LF, so a value with `\\r\\n` adds a header. Reproduced on 0.3.1 with a one-line script.",
+  "changed_files": [],
+  "expected_kind": "security_report",
+  "expected_claim_types": [
+    "symbol_exists",
+    "file_exists",
+    "behavior",
+    "version_exists"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "slop-08",
+  "class": "slop",
+  "is_pull_request": true,
+  "title": "Add 10x faster routing",
+  "body": "Rewrites `Router.match` with a radix tree, 10x faster on all benchmarks. Depends on `radix-router-turbo` 4.2.",
+  "changed_files": [
+    "tinyhttp/router.py"
+  ],
+  "expected_kind": "feature_pr",
+  "expected_claim_types": [
+    "symbol_exists",
+    "performance",
+    "dependency_added"
+  ]
+}

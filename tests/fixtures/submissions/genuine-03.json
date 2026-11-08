@@ -1,0 +1,15 @@
+{
+  "id": "genuine-03",
+  "class": "genuine",
+  "is_pull_request": true,
+  "title": "Document the timeout argument",
+  "body": "Adds a section to `docs/client.md` describing the `timeout` argument of `Client.get`. No code changes.",
+  "changed_files": [
+    "docs/client.md"
+  ],
+  "expected_kind": "docs_pr",
+  "expected_claim_types": [
+    "file_exists",
+    "symbol_exists"
+  ]
+}

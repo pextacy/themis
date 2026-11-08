@@ -1,0 +1,75 @@
+{
+  "at": "2026-11-08T09:30:44Z",
+  "base_url": "https://eu.api.otari.ai/api/v1",
+  "calls": [
+    {
+      "attempt_count": 1,
+      "cost_usd": 0.0,
+      "effective_model": "nvidia/nemotron-3.5-super-vl:free",
+      "endpoint": "chat/completions",
+      "fallback": false,
+      "latency_ms": 916,
+      "outcome": "ok",
+      "prompt_version": null,
+      "provider": "openrouter",
+      "request_id": "930539cd-1b40-413c-91dd-d3da70d68d08",
+      "requested_model": "openrouter:nvidia/nemotron-3.5-super-vl:free",
+      "role": "doctor",
+      "stage": "doctor",
+      "status": 200,
+      "usage": {
+        "completion": 4,
+        "prompt": 19
+      }
+    },
+    {
+      "attempt_count": 1,
+      "cost_usd": 0.0,
+      "effective_model": "nvidia/nemotron-3.5-super-vl:free",
+      "endpoint": "chat/completions",
+      "fallback": false,
+      "latency_ms": 617,
+      "outcome": "ok",
+      "prompt_version": null,
+      "provider": "openrouter",
+      "request_id": "e7e4eb15-1890-4e42-abfe-aa978754950d",
+      "requested_model": "openrouter:nvidia/nemotron-3.5-super-vl:free",
+      "role": "doctor",
+      "stage": "doctor",
+      "status": 200,
+      "usage": {
+        "completion": 4,
+        "prompt": 19
+      }
+    },
+    {
+      "attempt_count": null,
+      "cost_usd": null,
+      "effective_model": null,
+      "endpoint": "chat/completions",
+      "fallback": null,
+      "latency_ms": 146,
+      "outcome": "budget_exceeded",
+      "prompt_version": null,
+      "provider": null,
+      "request_id": "e4db2a1b-47e6-4386-bac4-75afc8d94bd2",
+      "requested_model": "openrouter:nvidia/nemotron-3.5-super-vl:free",
+      "role": "doctor",
+      "stage": "doctor",
+      "status": 403,
+      "usage": {
+        "completion": null,
+        "prompt": null
+      }
+    }
+  ],
+  "feature": "per-user",
+  "observed": {
+    "admitted_before_refusal": 2,
+    "budget_scope": "user",
+    "retry_after": 52154.0,
+    "user": "gh:9000034867433"
+  },
+  "status": "PASS",
+  "themis_version": "0.1.0"
+}

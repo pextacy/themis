@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-08T09:31:35Z",
+  "base_url": "https://eu.api.otari.ai/api/v1",
+  "calls": [
+    {
+      "attempt_count": 1,
+      "cost_usd": 0.0,
+      "effective_model": "liquid/lfm-2.5-2.6b:free",
+      "endpoint": "chat/completions",
+      "fallback": false,
+      "latency_ms": 1348,
+      "outcome": "ok",
+      "prompt_version": null,
+      "provider": "openrouter",
+      "request_id": "94998859-ab60-4245-b76d-fe174a2a7cba",
+      "requested_model": "lfm2.5-2.6b-free",
+      "role": "doctor",
+      "stage": "doctor",
+      "status": 200,
+      "usage": {
+        "completion": 110,
+        "prompt": 38
+      }
+    }
+  ],
+  "feature": "chat-b",
+  "observed": {
+    "family": "lfm",
+    "model": "lfm2.5-2.6b-free",
+    "parsed": {
+      "ok": true,
+      "word": "blue"
+    }
+  },
+  "status": "PASS",
+  "themis_version": "0.1.0"
+}

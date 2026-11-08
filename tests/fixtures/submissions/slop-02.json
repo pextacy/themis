@@ -1,0 +1,17 @@
+{
+  "id": "slop-02",
+  "class": "slop",
+  "is_pull_request": true,
+  "title": "Fix memory leak in ConnectionPool",
+  "body": "Fixes a severe memory leak in `ConnectionPool._release` by closing sockets, reducing memory use by 43%. Comprehensive tests were added.",
+  "changed_files": [
+    "tinyhttp/client.py"
+  ],
+  "expected_kind": "bugfix_pr",
+  "expected_claim_types": [
+    "symbol_exists",
+    "behavior",
+    "performance",
+    "test_added"
+  ]
+}

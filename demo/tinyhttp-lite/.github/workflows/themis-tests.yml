@@ -1,0 +1,17 @@
+# Fork-safe: runs PR code, so it holds no secrets and only reads the repository.
+name: themis-tests
+on: pull_request
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      # The runner has no pytest. The project's dev group brings it.
+      - uses: astral-sh/setup-uv@v5
+      - uses: pextacy/themis/action/tests@otari-hackathon
+        with:
+          command: uv run --group dev pytest -q --junitxml=themis-junit.xml

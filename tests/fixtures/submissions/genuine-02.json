@@ -1,0 +1,17 @@
+{
+  "id": "genuine-02",
+  "class": "genuine",
+  "is_pull_request": true,
+  "title": "Fix off-by-one in parse_range",
+  "body": "Fixes #12. Clamps the end offset in `parse_range` and adds `tests/test_ranges.py::test_open_ended_range`.",
+  "changed_files": [
+    "tinyhttp/ranges.py",
+    "tests/test_ranges.py"
+  ],
+  "expected_kind": "bugfix_pr",
+  "expected_claim_types": [
+    "fixes_issue",
+    "symbol_exists",
+    "test_added"
+  ]
+}

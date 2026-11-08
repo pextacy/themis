@@ -36,7 +36,8 @@ Built for the **Mozilla MozFest "Developers Wilding: Online" hackathon** (DoraHa
 
 ```
 themis/
-├── CLAUDE.md  PRD.md  PLAN.md  DOCS.md  PHASES.md
+├── CLAUDE.md                   # imports docs/CLAUDE.md
+├── docs/                       # PRD, PLAN, DOCS, PHASES, READINESS, OTARI_FEEDBACK
 ├── pyproject.toml              # uv-managed, Python >= 3.12
 ├── .env.example                # never commit .env
 ├── .otari/guardrails.yml       # Otari Agent Guardrails for agents working on THIS repo
@@ -44,16 +45,21 @@ themis/
 │   ├── cli.py                  # `themis` CLI (typer)
 │   ├── config.py               # env + .github/themis.yml loading (pydantic-settings)
 │   ├── models.py               # domain models: Submission, Claim, Check, Verdict, Receipt
+│   ├── logs.py                 # structlog JSON setup
+│   ├── doctor/                 # live probes, readiness table, evidence capture
 │   ├── otari/
 │   │   ├── client.py           # the ONLY module that talks HTTP to Otari
+│   │   ├── catalog.py          # open-weight candidates from GET /models
 │   │   ├── errors.py           # gateway error taxonomy
 │   │   ├── tools.py            # built-in tool declarations (web search/fetch, code exec)
 │   │   ├── mcp.py              # inline MCP server declarations + streamed Messages parser
 │   │   └── budgets.py          # per-contributor budget headers, budget refusal handling
+│   ├── context.py              # StageContext passed to every stage
 │   ├── intake/                 # GitHub payload → Submission
 │   ├── shield/                 # guardrails + deterministic sanitizer
 │   ├── agents/                 # clerk.py, prover.py, arbiter.py + prompts/
-│   ├── evidence/               # symbols, repro, web, tests_results, dependencies, duplicates, context
+│   ├── evidence/               # snapshot, symbols, versions, repro, web, tests_results, consistency,
+│   │                           # dependencies, duplicates, context, engine
 │   ├── verdict/                # scoring.py (deterministic), receipts.py
 │   ├── report/                 # GitHub comment / check-run rendering
 │   ├── store/                  # SQLite persistence, redaction
@@ -79,6 +85,7 @@ uv run pytest -q -m live              # live tests against hosted Otari (needs O
 uv run ruff check . && uv run ruff format --check .
 uv run mypy src
 uv run themis doctor                  # verifies key, balance, models, tools, MCP, guardrails, budgets
+uv run themis evidence capture all    # live probes → redacted receipts in evidence/, regenerates docs/READINESS.md
 uv run themis check <github-url>      # analyze one PR / issue end-to-end, print ledger
 uv run themis check <url> --dry-run   # no Otari calls, shows the planned pipeline
 uv run themis bench                   # run labeled benchmark, writes bench/results/*.json

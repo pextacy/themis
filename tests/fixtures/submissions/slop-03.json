@@ -1,0 +1,15 @@
+{
+  "id": "slop-03",
+  "class": "slop",
+  "is_pull_request": true,
+  "title": "Harden parsing with fastjson-secure-parser",
+  "body": "Adds the `fastjson-secure-parser` package to `requirements.txt` to stop injection attacks in `tinyhttp/parser.py`.",
+  "changed_files": [
+    "requirements.txt"
+  ],
+  "expected_kind": "dependency_pr",
+  "expected_claim_types": [
+    "dependency_added",
+    "file_exists"
+  ]
+}

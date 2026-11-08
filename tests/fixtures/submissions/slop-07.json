@@ -1,0 +1,14 @@
+{
+  "id": "slop-07",
+  "class": "slop",
+  "is_pull_request": false,
+  "title": "Buffer overflow in header parser",
+  "body": "A buffer overflow in `parse_headers` allows arbitrary memory writes when `MAX_HEADER_SIZE` is exceeded, in `tinyhttp/_cparser.c`.",
+  "changed_files": [],
+  "expected_kind": "security_report",
+  "expected_claim_types": [
+    "symbol_exists",
+    "file_exists",
+    "behavior"
+  ]
+}

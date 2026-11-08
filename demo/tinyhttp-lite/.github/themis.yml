@@ -1,0 +1,6 @@
+# Defaults, written out so a reader of the demo can see them.
+version: 1
+mode: advisory
+policy:
+  auto_close: false
+  first_time_contributor_fast_track: true

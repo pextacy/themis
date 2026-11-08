@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Stats · THEMIS{% endblock %}
+{% block content %}
+<h1>Stats</h1>
+<dl>
+  <div><dt>Submissions</dt><dd>{{ stats.total }}</dd></div>
+  <div><dt>Contradicted or tainted</dt><dd>{{ "%.0f%%"|format(stats.flagged_rate * 100) if stats.flagged_rate is not none else "—" }}</dd></div>
+  <div><dt>Total cost</dt><dd>{{ "$%.4f"|format(stats.cost_usd) if stats.cost_usd is not none else "not reported" }}</dd></div>
+  <div><dt>Cost per submission</dt><dd>{{ "$%.4f"|format(stats.cost_per_submission) if stats.cost_per_submission is not none else "—" }}</dd></div>
+  <div><dt>Gateway calls</dt><dd>{{ stats.calls }}</dd></div>
+  <div><dt>Median call latency</dt><dd>{{ "%d ms"|format(stats.median_latency_ms) if stats.median_latency_ms is not none else "—" }}</dd></div>
+  <div><dt>Fallbacks</dt><dd>{{ stats.fallbacks }}</dd></div>
+  <div><dt>Budget refusals</dt><dd>{{ stats.budget_refusals }}</dd></div>
+  <div><dt>Guardrail blocks</dt><dd>{{ stats.guardrail_blocks }}</dd></div>
+</dl>
+<h2>Verdicts</h2>
+<div class="scroll"><table>
+  <thead><tr><th scope="col">Verdict</th><th scope="col">Count</th></tr></thead>
+  <tbody>{% for name, count in stats.verdicts.items() %}<tr><td class="verdict-{{ name }}">{{ name }}</td><td>{{ count }}</td></tr>{% else %}<tr><td colspan="2">Nothing yet.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endblock %}

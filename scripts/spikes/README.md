@@ -1,18 +1,18 @@
-# Phase 0 spikes
+# Live verification setup
 
-One command runs every live check, saves redacted receipts to `receipts/`, and regenerates
-`docs/READINESS.md`.
+The spikes moved into the product: each one is a probe in `src/themis/doctor/probes.py`, running on
+the real `OtariClient`. Only the model bake-off stays here.
 
 ```bash
-uv run scripts/spikes/run_all.py              # all spikes, cheapest first
-uv run scripts/spikes/run_all.py guardrail    # one spike
-uv run scripts/spikes/bakeoff.py              # 10 fixtures x 3-4 models, about 40 calls
-uv run --with pytest --with httpx pytest scripts/spikes/tests -q    # offline, no key
+uv run themis evidence capture all        # every probe; receipts in evidence/, updates docs/READINESS.md
+uv run themis evidence capture guardrail  # one probe
+uv run themis doctor                      # the same probes, writes nothing
+uv run python scripts/spikes/bakeoff.py   # 10 fixtures x 3-4 models, about 40 calls
 ```
 
-A spike reports `PASS`, `FAIL` (exercised, wrong behaviour) or `BLOCKED` (setup missing, with the
-reason). A run with no key costs nothing and records nothing. Receipts from anything other than
-hosted Otari are refused inside this repository.
+A probe reports `PASS`, `FAIL` (exercised, wrong behaviour) or `BLOCKED` (setup missing, with the
+reason). Run `capture` first, not `doctor` as well: the budget probes spend their small daily limits.
+Receipts are refused from anything other than hosted Otari, and from any test double.
 
 ## Setup in the Otari dashboard
 

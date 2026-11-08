@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}THEMIS{% endblock %}</title>
+<script src="https://unpkg.com/htmx.org@2.0.3/dist/htmx.min.js" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
+<style>
+:root { --ink: #1c1b18; --muted: #5c5a53; --paper: #fbfaf6; --line: #d8d5ca; --accent: #1f4e79; --bad: #9b1c1c; --good: #1d6b3a; --warn: #7a4d00; }
+@media (prefers-color-scheme: dark) { :root { --ink: #ecebe5; --muted: #b0aea5; --paper: #17171a; --line: #3a3a40; --accent: #8fc1ee; --bad: #f4a3a3; --good: #8fd6a8; --warn: #e8c37a; } }
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--paper); font: 16px/1.5 ui-serif, Georgia, serif; }
+header { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: baseline; padding: 1rem clamp(1rem, 4vw, 3rem); border-bottom: 2px solid var(--ink); }
+header strong { letter-spacing: .12em; }
+main { max-width: 72rem; margin: 0 auto; padding: 1.5rem clamp(1rem, 4vw, 3rem); }
+a { color: var(--accent); }
+a:focus-visible, select:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: .5rem .75rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 600 .8rem ui-sans-serif, system-ui, sans-serif; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+code, .mono { font-family: ui-monospace, Menlo, monospace; font-size: .85em; overflow-wrap: anywhere; }
+.verdict-EVIDENCED, .verdict-PLAUSIBLE { color: var(--good); font-weight: 600; }
+.verdict-CONTRADICTED, .verdict-TAINTED, .verdict-TAINTED_UNCHECKED { color: var(--bad); font-weight: 600; }
+.verdict-NEEDS_EVIDENCE, .verdict-DEFERRED { color: var(--warn); font-weight: 600; }
+form { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+label { font: .85rem ui-sans-serif, system-ui, sans-serif; color: var(--muted); }
+select { display: block; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--muted); padding: .25rem; }
+dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem; }
+dt { color: var(--muted); font: .85rem ui-sans-serif, system-ui, sans-serif; }
+dd { margin: 0; font-size: 1.6rem; }
+</style>
+</head>
+<body>
+<header>
+  <strong>THEMIS</strong>
+  <nav aria-label="Main"><a href="/">Queue</a> · <a href="/stats">Stats</a> · <a href="/analytics">Analytics</a> · <a href="/doctor">Doctor</a></nav>
+</header>
+<main>{% block content %}{% endblock %}</main>
+</body>
+</html>

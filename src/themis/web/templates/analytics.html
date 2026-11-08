@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Analytics · THEMIS{% endblock %}
+{% block content %}
+<style>
+.bar { display: block; height: .5rem; min-width: 2px; background: currentColor; border-radius: 1px; }
+.mix td:last-child, .daily td:last-child { width: 45%; }
+</style>
+<h1>Analytics</h1>
+<p>Every bar repeats a number in the same row, so the tables read the same without them.</p>
+
+<h2>Verdict mix by repository</h2>
+<div class="scroll"><table class="mix">
+  <thead><tr><th scope="col">Repository</th><th scope="col">Verdict</th><th scope="col">Count</th><th scope="col">Share</th><th scope="col">Bar</th></tr></thead>
+  <tbody>
+  {% for repo in mix %}{% for part in repo.parts %}
+    <tr>
+      <td>{{ repo.repo }}</td>
+      <td class="verdict-{{ part.verdict }}">{{ part.verdict }}</td>
+      <td>{{ part.count }}</td>
+      <td>{{ part.share }}%</td>
+      <td class="verdict-{{ part.verdict }}"><span class="bar" aria-hidden="true" style="width: {{ part.share }}%"></span></td>
+    </tr>
+  {% endfor %}{% else %}<tr><td colspan="5">Nothing yet.</td></tr>{% endfor %}
+  </tbody>
+</table></div>
+
+<h2>Daily volume</h2>
+<div class="scroll"><table class="daily">
+  <thead><tr><th scope="col">Day</th><th scope="col">Submissions</th><th scope="col">Bar</th></tr></thead>
+  <tbody>
+  {% for row in daily %}
+    <tr><td>{{ row.day }}</td><td>{{ row.count }}</td><td><span class="bar" aria-hidden="true" style="width: {{ row.share }}%"></span></td></tr>
+  {% else %}<tr><td colspan="3">Nothing yet.</td></tr>{% endfor %}
+  </tbody>
+</table></div>
+
+{% for title, rows in (("Cost by role", by_role), ("Cost by model", by_model)) %}
+<h2>{{ title }}</h2>
+<div class="scroll"><table>
+  <thead><tr><th scope="col">Name</th><th scope="col">Calls</th><th scope="col">Cost</th></tr></thead>
+  <tbody>
+  {% for row in rows %}
+    <tr><td class="mono">{{ row.name }}</td><td>{{ row.calls }}</td><td>{{ "$%.4f"|format(row.cost) if row.cost is not none else "not reported" }}</td></tr>
+  {% else %}<tr><td colspan="3">No gateway calls yet.</td></tr>{% endfor %}
+  </tbody>
+</table></div>
+{% endfor %}
+{% endblock %}

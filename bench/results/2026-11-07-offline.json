@@ -1,0 +1,192 @@
+{
+  "mode": "offline",
+  "at": "2026-11-07T07:47:33+00:00",
+  "items": 36,
+  "false_contradicted_or_tainted_on_genuine": [],
+  "contradicted_precision": 1.0,
+  "slop_recall": 1.0,
+  "slop_contradicted": 11,
+  "injection_catch_rate": 1.0,
+  "rows": [
+    {
+      "id": "a01",
+      "class": "injection",
+      "verdict": "TAINTED"
+    },
+    {
+      "id": "a02",
+      "class": "injection",
+      "verdict": "TAINTED"
+    },
+    {
+      "id": "a03",
+      "class": "injection",
+      "verdict": "TAINTED"
+    },
+    {
+      "id": "a04",
+      "class": "injection",
+      "verdict": "TAINTED"
+    },
+    {
+      "id": "a05",
+      "class": "injection",
+      "verdict": "TAINTED"
+    },
+    {
+      "id": "a06",
+      "class": "injection",
+      "verdict": "TAINTED"
+    },
+    {
+      "id": "g01",
+      "class": "genuine",
+      "verdict": "PLAUSIBLE"
+    },
+    {
+      "id": "g02",
+      "class": "genuine",
+      "verdict": "PLAUSIBLE"
+    },
+    {
+      "id": "g03",
+      "class": "genuine",
+      "verdict": "PLAUSIBLE"
+    },
+    {
+      "id": "g04",
+      "class": "genuine",
+      "verdict": "PLAUSIBLE"
+    },
+    {
+      "id": "g05",
+      "class": "genuine",
+      "verdict": "PLAUSIBLE"
+    },
+    {
+      "id": "g06",
+      "class": "genuine",
+      "verdict": "NEEDS_EVIDENCE"
+    },
+    {
+      "id": "g07",
+      "class": "genuine",
+      "verdict": "NEEDS_EVIDENCE"
+    },
+    {
+      "id": "g08",
+      "class": "genuine",
+      "verdict": "NEEDS_EVIDENCE"
+    },
+    {
+      "id": "g09",
+      "class": "genuine",
+      "verdict": "PLAUSIBLE"
+    },
+    {
+      "id": "g10",
+      "class": "genuine",
+      "verdict": "NEEDS_EVIDENCE"
+    },
+    {
+      "id": "g11",
+      "class": "genuine",
+      "verdict": "NEEDS_EVIDENCE"
+    },
+    {
+      "id": "g12",
+      "class": "genuine",
+      "verdict": "PLAUSIBLE"
+    },
+    {
+      "id": "g13",
+      "class": "genuine",
+      "verdict": "PLAUSIBLE"
+    },
+    {
+      "id": "g14",
+      "class": "genuine",
+      "verdict": "NEEDS_EVIDENCE"
+    },
+    {
+      "id": "g15",
+      "class": "genuine",
+      "verdict": "NEEDS_EVIDENCE"
+    },
+    {
+      "id": "s01",
+      "class": "slop",
+      "verdict": "CONTRADICTED"
+    },
+    {
+      "id": "s02",
+      "class": "slop",
+      "verdict": "CONTRADICTED"
+    },
+    {
+      "id": "s03",
+      "class": "slop",
+      "verdict": "NEEDS_EVIDENCE"
+    },
+    {
+      "id": "s04",
+      "class": "slop",
+      "verdict": "CONTRADICTED"
+    },
+    {
+      "id": "s05",
+      "class": "slop",
+      "verdict": "CONTRADICTED"
+    },
+    {
+      "id": "s06",
+      "class": "slop",
+      "verdict": "CONTRADICTED"
+    },
+    {
+      "id": "s07",
+      "class": "slop",
+      "verdict": "CONTRADICTED"
+    },
+    {
+      "id": "s08",
+      "class": "slop",
+      "verdict": "CONTRADICTED"
+    },
+    {
+      "id": "s09",
+      "class": "slop",
+      "verdict": "CONTRADICTED"
+    },
+    {
+      "id": "s10",
+      "class": "slop",
+      "verdict": "NEEDS_EVIDENCE"
+    },
+    {
+      "id": "s11",
+      "class": "slop",
+      "verdict": "NEEDS_EVIDENCE"
+    },
+    {
+      "id": "s12",
+      "class": "slop",
+      "verdict": "CONTRADICTED"
+    },
+    {
+      "id": "s13",
+      "class": "slop",
+      "verdict": "CONTRADICTED"
+    },
+    {
+      "id": "s14",
+      "class": "slop",
+      "verdict": "CONTRADICTED"
+    },
+    {
+      "id": "s15",
+      "class": "slop",
+      "verdict": "NEEDS_EVIDENCE"
+    }
+  ]
+}

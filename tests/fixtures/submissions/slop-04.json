@@ -1,0 +1,17 @@
+{
+  "id": "slop-04",
+  "class": "slop",
+  "is_pull_request": true,
+  "title": "Enterprise-grade observability layer",
+  "body": "Introduces a world-class observability layer using `asyncio.TaskPool.metrics()` from Python 3.14. Resolves all performance problems in `tinyhttp/metrics.py`.",
+  "changed_files": [
+    "tinyhttp/core.py"
+  ],
+  "expected_kind": "feature_pr",
+  "expected_claim_types": [
+    "symbol_exists",
+    "version_exists",
+    "file_exists",
+    "performance"
+  ]
+}

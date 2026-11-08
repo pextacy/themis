@@ -1,0 +1,26 @@
+name: THEMIS tests
+description: Run the project's tests and upload a summary for the analysis workflow. Holds no secrets.
+inputs:
+  command:
+    description: Test command. Must write JUnit XML to themis-junit.xml.
+    required: false
+    default: pytest -q --junitxml=themis-junit.xml
+runs:
+  using: composite
+  steps:
+    - name: Run tests
+      shell: bash
+      env:
+        THEMIS_TEST_COMMAND: ${{ inputs.command }}
+      run: bash -c "$THEMIS_TEST_COMMAND" || echo "tests failed; the report records it"
+    - uses: astral-sh/setup-uv@v5
+    - name: Summarize results
+      shell: bash
+      env:
+        HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        THEMIS_SOURCE: ${{ github.action_path }}/../..
+      run: uv run --project "$THEMIS_SOURCE" themis tests-report themis-junit.xml --head-sha "$HEAD_SHA"
+    - uses: actions/upload-artifact@v4
+      with:
+        name: themis-test-results
+        path: themis-test-results.json

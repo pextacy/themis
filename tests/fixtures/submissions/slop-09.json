@@ -1,0 +1,15 @@
+{
+  "id": "slop-09",
+  "class": "slop",
+  "is_pull_request": true,
+  "title": "Improve documentation quality",
+  "body": "Greatly improves the docs. Updates `docs/advanced/plugins.md` and documents the `--turbo` CLI flag.",
+  "changed_files": [
+    "README.md"
+  ],
+  "expected_kind": "docs_pr",
+  "expected_claim_types": [
+    "file_exists",
+    "symbol_exists"
+  ]
+}

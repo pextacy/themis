@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ item.repo }}#{{ item.number }} · THEMIS{% endblock %}
+{% block content %}
+<h1>{{ item.repo }}#{{ item.number }}</h1>
+<p class="verdict-{{ item.verdict }}">{{ item.verdict }} · evidence score {{ item.score }}/100</p>
+<h2>Claims</h2>
+<div class="scroll"><table>
+  <thead><tr><th scope="col">ID</th><th scope="col">Type</th><th scope="col">Claim</th></tr></thead>
+  <tbody>{% for row in claims %}<tr><td>{{ row.id }}</td><td>{{ row.type }}</td><td>{{ row.text }}</td></tr>{% else %}<tr><td colspan="3">No claims.</td></tr>{% endfor %}</tbody>
+</table></div>
+<h2>Checks</h2>
+<div class="scroll"><table>
+  <thead><tr><th scope="col">Claim</th><th scope="col">Module</th><th scope="col">Status</th><th scope="col">Strength</th><th scope="col">Detail</th></tr></thead>
+  <tbody>{% for row in checks %}<tr><td>{{ row.claim_id or "—" }}</td><td>{{ row.module }}</td><td>{{ row.status }}</td><td>{{ row.strength or "—" }}</td><td class="mono">{{ row.detail_json }}</td></tr>{% else %}<tr><td colspan="5">No checks ran.</td></tr>{% endfor %}</tbody>
+</table></div>
+<h2>Shield findings</h2>
+<div class="scroll"><table>
+  <thead><tr><th scope="col">Source</th><th scope="col">Kind</th><th scope="col">Excerpt</th></tr></thead>
+  <tbody>{% for row in shield_findings %}<tr><td>{{ row.source }}</td><td>{{ row.kind }}</td><td class="mono">{{ row.excerpt_redacted }}</td></tr>{% else %}<tr><td colspan="3">No findings.</td></tr>{% endfor %}</tbody>
+</table></div>
+<h2>Otari calls</h2>
+<div class="scroll"><table>
+  <thead><tr><th scope="col">Request ID</th><th scope="col">Stage</th><th scope="col">Model</th><th scope="col">Provider</th><th scope="col">Fallback</th><th scope="col">Cost</th><th scope="col">Outcome</th></tr></thead>
+  <tbody>{% for row in otari_calls %}<tr><td class="mono">{{ row.request_id or "none issued" }}</td><td>{{ row.stage or "—" }}</td><td>{{ row.effective_model or row.requested_model or "—" }}</td><td>{{ row.provider or "—" }}</td><td>{{ "yes" if row.fallback else "no" }}</td><td>{{ "$%.6f"|format(row.cost_usd) if row.cost_usd is not none else "not reported" }}</td><td>{{ row.outcome }}</td></tr>{% else %}<tr><td colspan="7">No gateway calls.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% if overrides %}
+<h2>Overrides</h2>
+<ul>{% for row in overrides %}<li>{{ row.maintainer }}: {{ row.from_verdict }} to {{ row.to_verdict }}. {{ row.reason }}</li>{% endfor %}</ul>
+{% endif %}
+{% endblock %}

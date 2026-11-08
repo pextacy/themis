@@ -1,0 +1,12 @@
+{
+  "id": "genuine-06",
+  "class": "genuine",
+  "is_pull_request": false,
+  "title": "Add a retries argument to Client.get",
+  "body": "`Client.get` has no retry support. A `retries` argument would help on flaky networks.",
+  "changed_files": [],
+  "expected_kind": "feature_request",
+  "expected_claim_types": [
+    "symbol_exists"
+  ]
+}

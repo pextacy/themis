@@ -1,0 +1,74 @@
+{
+  "at": "2026-11-08T09:30:43Z",
+  "base_url": "https://eu.api.otari.ai/api/v1",
+  "calls": [
+    {
+      "attempt_count": 1,
+      "cost_usd": 0.0,
+      "effective_model": "nvidia/nemotron-3.5-super-vl:free",
+      "endpoint": "chat/completions",
+      "fallback": false,
+      "latency_ms": 761,
+      "outcome": "ok",
+      "prompt_version": null,
+      "provider": "openrouter",
+      "request_id": "900523ab-7520-49a3-a761-a62bffe15c42",
+      "requested_model": "openrouter:nvidia/nemotron-3.5-super-vl:free",
+      "role": "doctor",
+      "stage": "doctor",
+      "status": 200,
+      "usage": {
+        "completion": 4,
+        "prompt": 19
+      }
+    },
+    {
+      "attempt_count": 1,
+      "cost_usd": 0.0,
+      "effective_model": "nvidia/nemotron-3.5-super-vl:free",
+      "endpoint": "chat/completions",
+      "fallback": false,
+      "latency_ms": 712,
+      "outcome": "ok",
+      "prompt_version": null,
+      "provider": "openrouter",
+      "request_id": "2a422b6c-8c01-4fa8-9fd4-33648cfd9c81",
+      "requested_model": "openrouter:nvidia/nemotron-3.5-super-vl:free",
+      "role": "doctor",
+      "stage": "doctor",
+      "status": 200,
+      "usage": {
+        "completion": 4,
+        "prompt": 19
+      }
+    },
+    {
+      "attempt_count": null,
+      "cost_usd": null,
+      "effective_model": null,
+      "endpoint": "chat/completions",
+      "fallback": null,
+      "latency_ms": 171,
+      "outcome": "budget_exceeded",
+      "prompt_version": null,
+      "provider": null,
+      "request_id": "45be8b4d-6f1a-45c9-ad0d-307aa2a5f4e3",
+      "requested_model": "openrouter:nvidia/nemotron-3.5-super-vl:free",
+      "role": "doctor",
+      "stage": "doctor",
+      "status": 403,
+      "usage": {
+        "completion": null,
+        "prompt": null
+      }
+    }
+  ],
+  "feature": "budget",
+  "observed": {
+    "admitted_before_refusal": 2,
+    "budget_scope": "api_token",
+    "retry_after": 52156.0
+  },
+  "status": "PASS",
+  "themis_version": "0.1.0"
+}

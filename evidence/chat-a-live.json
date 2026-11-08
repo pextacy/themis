@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-06T19:14:40Z",
+  "base_url": "https://eu.api.otari.ai/api/v1",
+  "calls": [
+    {
+      "attempt_count": 1,
+      "cost_usd": 0.0,
+      "effective_model": "nvidia/nemotron-3.5-super-vl:free",
+      "endpoint": "chat/completions",
+      "fallback": false,
+      "latency_ms": 1186,
+      "outcome": "ok",
+      "prompt_version": null,
+      "provider": "openrouter",
+      "request_id": "c09d9e45-e3ec-4d43-b956-6a4af77ab7cc",
+      "requested_model": "openrouter:nvidia/nemotron-3.5-super-vl:free",
+      "role": "doctor",
+      "stage": "doctor",
+      "status": 200,
+      "usage": {
+        "completion": 84,
+        "prompt": 39
+      }
+    }
+  ],
+  "feature": "chat-a",
+  "observed": {
+    "family": "nemotron",
+    "model": "openrouter:nvidia/nemotron-3.5-super-vl:free",
+    "parsed": {
+      "ok": true,
+      "word": "blue"
+    }
+  },
+  "status": "PASS",
+  "themis_version": "0.1.0"
+}

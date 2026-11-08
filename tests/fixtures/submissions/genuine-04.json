@@ -1,0 +1,13 @@
+{
+  "id": "genuine-04",
+  "class": "genuine",
+  "is_pull_request": false,
+  "title": "Crash on malformed Range header",
+  "body": "<!-- Thanks for filing! Please describe the problem and how to reproduce it. -->\n`parse_range('bytes=abc', 10)` raises IndexError instead of returning None.\n\n<details><summary>Traceback</summary>\n\n```\nFile \"tinyhttp/ranges.py\", line 41, in parse_range\nIndexError: list index out of range\n```\n</details>",
+  "changed_files": [],
+  "expected_kind": "bug_report",
+  "expected_claim_types": [
+    "symbol_exists",
+    "behavior"
+  ]
+}

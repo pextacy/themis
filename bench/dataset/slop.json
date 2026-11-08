@@ -1,0 +1,268 @@
+[
+  {
+    "id": "s01",
+    "class": "slop",
+    "kind": "security_report",
+    "title": "CRITICAL: remote code execution",
+    "body": "A critical RCE exists in `HttpServer.execute_template` in `tinyhttp/server/render.py`. Affects versions before 9.4.0.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`HttpServer.execute_template`",
+        "quote": "`HttpServer.execute_template`"
+      },
+      {
+        "type": "file_exists",
+        "text": "`tinyhttp/server/render.py`",
+        "quote": "`tinyhttp/server/render.py`"
+      },
+      {
+        "type": "version_exists",
+        "text": "versions before 9.4.0",
+        "quote": "versions before 9.4.0"
+      }
+    ]
+  },
+  {
+    "id": "s02",
+    "class": "slop",
+    "kind": "bugfix_pr",
+    "title": "Fix memory leak in ConnectionPool",
+    "body": "Fixes a severe leak in `ConnectionPool._release`. Comprehensive tests were added.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`ConnectionPool._release`",
+        "quote": "`ConnectionPool._release`"
+      },
+      {
+        "type": "test_added",
+        "text": "tests were added",
+        "quote": "tests were added"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "tinyhttp/client.py"
+    ]
+  },
+  {
+    "id": "s03",
+    "class": "slop",
+    "kind": "feature_pr",
+    "title": "Enterprise observability",
+    "body": "Introduces observability through `Client.emit_metrics` in `tinyhttp/metrics.py`.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`Client.emit_metrics`",
+        "quote": "`Client.emit_metrics`"
+      },
+      {
+        "type": "file_exists",
+        "text": "`tinyhttp/metrics.py`",
+        "quote": "`tinyhttp/metrics.py`"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "tinyhttp/core.py"
+    ]
+  },
+  {
+    "id": "s04",
+    "class": "slop",
+    "kind": "bug_report",
+    "title": "Request smuggling",
+    "body": "The `RequestSmuggler` class in `tinyhttp/http1.py` allows smuggling.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`RequestSmuggler` class",
+        "quote": "`RequestSmuggler` class"
+      },
+      {
+        "type": "file_exists",
+        "text": "`tinyhttp/http1.py`",
+        "quote": "`tinyhttp/http1.py`"
+      }
+    ]
+  },
+  {
+    "id": "s05",
+    "class": "slop",
+    "kind": "bugfix_pr",
+    "title": "Critical race fixed",
+    "body": "Eliminates a race in `AsyncDispatcher.dispatch`. All 412 tests pass.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`AsyncDispatcher.dispatch`",
+        "quote": "`AsyncDispatcher.dispatch`"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "README.md"
+    ]
+  },
+  {
+    "id": "s06",
+    "class": "slop",
+    "kind": "security_report",
+    "title": "Buffer overflow",
+    "body": "A buffer overflow in `tinyhttp/_cparser.c` allows arbitrary writes.",
+    "claims": [
+      {
+        "type": "file_exists",
+        "text": "`tinyhttp/_cparser.c`",
+        "quote": "`tinyhttp/_cparser.c`"
+      }
+    ]
+  },
+  {
+    "id": "s07",
+    "class": "slop",
+    "kind": "feature_pr",
+    "title": "10x faster routing",
+    "body": "Rewrites `Router.match_fast` with a radix tree.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`Router.match_fast`",
+        "quote": "`Router.match_fast`"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "tinyhttp/router.py"
+    ]
+  },
+  {
+    "id": "s08",
+    "class": "slop",
+    "kind": "bug_report",
+    "title": "Startup crash",
+    "body": "It crashes in `tinyhttp.bootstrap.init_runtime` on version 7.0.0.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`tinyhttp.bootstrap.init_runtime`",
+        "quote": "`tinyhttp.bootstrap.init_runtime`"
+      },
+      {
+        "type": "version_exists",
+        "text": "version 7.0.0",
+        "quote": "version 7.0.0"
+      }
+    ]
+  },
+  {
+    "id": "s09",
+    "class": "slop",
+    "kind": "bugfix_pr",
+    "title": "Tests for everything",
+    "body": "Greatly improves quality. Added extensive tests.",
+    "claims": [
+      {
+        "type": "test_added",
+        "text": "Added extensive tests",
+        "quote": "Added extensive tests"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "tinyhttp/parser.py"
+    ]
+  },
+  {
+    "id": "s10",
+    "class": "slop",
+    "kind": "docs_pr",
+    "title": "Improve documentation",
+    "body": "Greatly improves the docs.",
+    "claims": [
+      {
+        "type": "other",
+        "text": "Greatly improves the docs",
+        "quote": "Greatly improves the docs"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "tinyhttp/server.py"
+    ]
+  },
+  {
+    "id": "s11",
+    "class": "slop",
+    "kind": "bug_report",
+    "title": "Vague crash",
+    "body": "The application sometimes misbehaves under load and should be more robust.",
+    "claims": []
+  },
+  {
+    "id": "s12",
+    "class": "slop",
+    "kind": "bug_report",
+    "title": "Unsafe deserialization",
+    "body": "`Response.from_pickle` in `tinyhttp/response.py` is unsafe.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`Response.from_pickle`",
+        "quote": "`Response.from_pickle`"
+      },
+      {
+        "type": "file_exists",
+        "text": "`tinyhttp/response.py`",
+        "quote": "`tinyhttp/response.py`"
+      }
+    ]
+  },
+  {
+    "id": "s13",
+    "class": "slop",
+    "kind": "bugfix_pr",
+    "title": "Closes the auth bypass",
+    "body": "Closes #9999 by hardening `Router.authenticate`.",
+    "claims": [
+      {
+        "type": "fixes_issue",
+        "text": "Closes #9999",
+        "quote": "Closes #9999"
+      },
+      {
+        "type": "symbol_exists",
+        "text": "`Router.authenticate`",
+        "quote": "`Router.authenticate`"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "tinyhttp/router.py"
+    ]
+  },
+  {
+    "id": "s14",
+    "class": "slop",
+    "kind": "security_report",
+    "title": "Path traversal",
+    "body": "Path traversal in `tinyhttp/static.py` lets attackers read files.",
+    "claims": [
+      {
+        "type": "file_exists",
+        "text": "`tinyhttp/static.py`",
+        "quote": "`tinyhttp/static.py`"
+      }
+    ]
+  },
+  {
+    "id": "s15",
+    "class": "slop",
+    "kind": "bug_report",
+    "title": "Performance is terrible",
+    "body": "Everything is slow and needs a rewrite in a faster language.",
+    "claims": []
+  }
+]

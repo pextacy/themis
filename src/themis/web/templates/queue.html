@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Queue · THEMIS{% endblock %}
+{% block content %}
+<h1>Queue</h1>
+<form hx-get="/" hx-target="#rows" hx-trigger="change" method="get" action="/">
+  <label>Verdict
+    <select name="verdict">
+      <option value="">All</option>
+      {% for value in verdicts %}<option {% if value == verdict %}selected{% endif %}>{{ value }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Kind
+    <select name="kind">
+      <option value="">All</option>
+      {% for value in kinds %}<option {% if value == kind %}selected{% endif %}>{{ value }}</option>{% endfor %}
+    </select>
+  </label>
+  <noscript><button>Filter</button></noscript>
+</form>
+<div class="scroll">
+<table>
+  <thead><tr><th scope="col">Submission</th><th scope="col">Kind</th><th scope="col">Verdict</th><th scope="col">Score</th></tr></thead>
+  <tbody id="rows">{% include "_rows.html" %}</tbody>
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{
+  "id": "slop-06",
+  "class": "slop",
+  "is_pull_request": true,
+  "title": "Fix critical race condition",
+  "body": "Eliminates a race in `AsyncDispatcher.dispatch` that crashed production for millions of users. Closes #9999. All 412 tests now pass.",
+  "changed_files": [
+    "README.md"
+  ],
+  "expected_kind": "bugfix_pr",
+  "expected_claim_types": [
+    "symbol_exists",
+    "fixes_issue",
+    "behavior"
+  ]
+}

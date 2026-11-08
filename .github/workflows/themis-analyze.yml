@@ -1,0 +1,39 @@
+# Holds OTARI_API_KEY, so it must never check out or run PR code. It has no checkout step.
+name: themis-analyze
+on:
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created]
+  workflow_run:
+    workflows: [themis-tests]
+    types: [completed]
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  checks: write
+  actions: read
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download test results
+        if: github.event_name == 'workflow_run'
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: themis-test-results
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/themis-results
+      - uses: pextacy/themis/action@otari-hackathon
+        with:
+          otari-api-key: ${{ secrets.OTARI_API_KEY }}
+          otari-base-url: ${{ vars.OTARI_BASE_URL || 'https://api.otari.ai/api/v1' }}
+          model-clerk: ${{ vars.THEMIS_MODEL_CLERK }}
+          model-prover: ${{ vars.THEMIS_MODEL_PROVER }}
+          model-arbiter: ${{ vars.THEMIS_MODEL_ARBITER }}
+          guardrail-mode: ${{ vars.THEMIS_GUARDRAIL_MODE || 'block' }}
+          contributor-budget: ${{ vars.OTARI_CONTRIBUTOR_BUDGET_ID }}
+          test-results: ${{ github.event_name == 'workflow_run' && format('{0}/themis-results/themis-test-results.json', runner.temp) || '' }}

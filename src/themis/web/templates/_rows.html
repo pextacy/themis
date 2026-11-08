@@ -1,0 +1,10 @@
+{% for item in items %}
+<tr>
+  <td><a href="/submissions/{{ item.id | urlencode }}">{{ item.repo }}#{{ item.number }}</a></td>
+  <td>{{ item.kind }}</td>
+  <td class="verdict-{{ item.verdict }}">{{ item.verdict }}</td>
+  <td>{{ item.score }}</td>
+</tr>
+{% else %}
+<tr><td colspan="4">Nothing has been analyzed yet. Run <code>themis check &lt;url&gt;</code>.</td></tr>
+{% endfor %}

@@ -1,0 +1,14 @@
+{
+  "id": "slop-05",
+  "class": "slop",
+  "is_pull_request": false,
+  "title": "Request smuggling vulnerability",
+  "body": "The `RequestSmuggler` class in `tinyhttp/http1.py` allows smuggling per RFC 7230 section 9.9.9. This is similar to CVE-2023-00000.",
+  "changed_files": [],
+  "expected_kind": "bug_report",
+  "expected_claim_types": [
+    "symbol_exists",
+    "file_exists",
+    "cve_reference"
+  ]
+}

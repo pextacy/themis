@@ -1,0 +1,57 @@
+schema_version: "1.0"
+policy:
+  id: themis/agent-rules
+  description: Rules for coding agents working on this repository, from docs/CLAUDE.md.
+
+gates:
+  - id: no-env-edits
+    type: path
+    runs: [pre_tool_use.edit_target, stop.working_tree]
+    enforcement: required
+    forbidden: [".env", "**/.env", ".env.local", ".env.production"]
+    message: Secrets stay out of the repository. Only `.env.example` may change.
+
+  - id: no-env-reads
+    type: path
+    runs: [pre_tool_use.read_target]
+    enforcement: required
+    forbidden: [".env", "**/.env"]
+    message: Secrets stay out of the transcript. Grep for the variable name if you need to know it is set.
+
+  - id: no-env-shell-reads
+    type: command
+    runs: [pre_tool_use.command]
+    enforcement: required
+    forbidden: ["cat .env", "less .env", "head .env", "tail .env", "more .env"]
+    message: Secrets stay out of the transcript. Grep for the variable name if you need to know it is set.
+
+  - id: no-hand-edited-evidence
+    type: path
+    runs: [pre_tool_use.edit_target]
+    enforcement: required
+    forbidden: ["evidence/**"]
+    # No stop.working_tree: `themis evidence capture` legitimately writes here.
+    accept_warnings: [shell-write-unseen]
+    message: Receipts come from `themis evidence capture`. Never hand-edit them.
+
+  - id: no-force-push
+    type: command
+    runs: [pre_tool_use.command]
+    enforcement: required
+    forbidden: ["git push --force", "git push -f"]
+    message: Do not rewrite history. `baseline-pre-otari` must stay reachable.
+
+  - id: no-provider-sdk-install
+    type: command
+    runs: [pre_tool_use.command]
+    enforcement: required
+    forbidden: ["uv add openai", "uv add anthropic", "uv add together", "pip install openai", "pip install anthropic"]
+    message: All model traffic goes through hosted Otari. Never add a provider SDK.
+
+  - id: no-provider-sdk-in-code
+    type: verifier
+    runs: [stop.verifier]
+    enforcement: required
+    verifier: .otari/verifiers/no-provider-sdks.sh
+    when_changed: ["pyproject.toml", "src/**"]
+    message: A provider SDK or direct provider endpoint appeared. All model traffic goes through hosted Otari.

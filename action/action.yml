@@ -1,0 +1,58 @@
+name: THEMIS
+description: Evidence, not opinions, for every contribution. Reads pull requests through the API and never runs their code.
+inputs:
+  otari-api-key:
+    description: Hosted Otari service key.
+    required: true
+  otari-base-url:
+    description: Gateway URL. EU accounts use https://eu.api.otari.ai/api/v1.
+    required: false
+    default: https://api.otari.ai/api/v1
+  github-token:
+    description: Token for reading the repository and writing the ledger.
+    required: false
+    default: ${{ github.token }}
+  model-clerk:
+    description: Model or routing policy for the Clerk.
+    required: true
+  model-prover:
+    description: Model or routing policy for the Prover.
+    required: true
+  model-arbiter:
+    description: Model or routing policy for the Arbiter, from another family.
+    required: true
+  guardrail-mode:
+    description: block stops a submission when the guardrail cannot run. monitor keeps going on the sanitizer alone, for a workspace with no guardrail set up.
+    required: false
+    default: block
+  contributor-budget:
+    description: Otari end-user budget id that a contributor's first request names. Without it Otari gives new contributors the key's default end-user budget.
+    required: false
+    default: ""
+  test-results:
+    description: Path to a downloaded themis-test-results.json.
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+    - uses: astral-sh/setup-uv@v5
+    - name: Run THEMIS
+      shell: bash
+      env:
+        OTARI_API_KEY: ${{ inputs.otari-api-key }}
+        OTARI_BASE_URL: ${{ inputs.otari-base-url }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        THEMIS_MODEL_CLERK: ${{ inputs.model-clerk }}
+        THEMIS_MODEL_PROVER: ${{ inputs.model-prover }}
+        THEMIS_MODEL_ARBITER: ${{ inputs.model-arbiter }}
+        THEMIS_GUARDRAIL_MODE: ${{ inputs.guardrail-mode }}
+        OTARI_CONTRIBUTOR_BUDGET_ID: ${{ inputs.contributor-budget }}
+        THEMIS_DB_URL: sqlite:///${{ runner.temp }}/themis.db
+        THEMIS_TEST_RESULTS: ${{ inputs.test-results }}
+        THEMIS_SOURCE: ${{ github.action_path }}/..
+      run: |
+        results=()
+        if [ -n "$THEMIS_TEST_RESULTS" ]; then results=(--test-results "$THEMIS_TEST_RESULTS"); fi
+        uv run --project "$THEMIS_SOURCE" themis action \
+          --event "$GITHUB_EVENT_PATH" --event-name "$GITHUB_EVENT_NAME" --repo "$GITHUB_REPOSITORY" "${results[@]}"

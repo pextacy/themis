@@ -1,0 +1,318 @@
+[
+  {
+    "id": "g01",
+    "class": "genuine",
+    "kind": "bug_report",
+    "title": "parse_range returns one byte too many",
+    "body": "In `tinyhttp/ranges.py`, `parse_range` returns `(0, 101)` for an open range on version 0.3.1.",
+    "claims": [
+      {
+        "type": "file_exists",
+        "text": "`tinyhttp/ranges.py`",
+        "quote": "`tinyhttp/ranges.py`"
+      },
+      {
+        "type": "symbol_exists",
+        "text": "`parse_range`",
+        "quote": "`parse_range`"
+      },
+      {
+        "type": "version_exists",
+        "text": "version 0.3.1",
+        "quote": "version 0.3.1"
+      },
+      {
+        "type": "behavior",
+        "text": "returns `(0, 101)` for an open range",
+        "quote": "returns `(0, 101)` for an open range"
+      }
+    ]
+  },
+  {
+    "id": "g02",
+    "class": "genuine",
+    "kind": "bugfix_pr",
+    "title": "Fix off-by-one in parse_range",
+    "body": "Fixes #12. Clamps the end offset and adds a regression test.",
+    "claims": [
+      {
+        "type": "fixes_issue",
+        "text": "Fixes #12",
+        "quote": "Fixes #12"
+      },
+      {
+        "type": "test_added",
+        "text": "adds a regression test",
+        "quote": "adds a regression test"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "tinyhttp/ranges.py",
+      "tests/test_ranges.py"
+    ]
+  },
+  {
+    "id": "g03",
+    "class": "genuine",
+    "kind": "docs_pr",
+    "title": "Explain the timeout argument",
+    "body": "Adds a section to `README.md` about the `Client.get` timeout.",
+    "claims": [
+      {
+        "type": "file_exists",
+        "text": "`README.md`",
+        "quote": "`README.md`"
+      },
+      {
+        "type": "symbol_exists",
+        "text": "`Client.get`",
+        "quote": "`Client.get`"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "README.md"
+    ]
+  },
+  {
+    "id": "g04",
+    "class": "genuine",
+    "kind": "bug_report",
+    "title": "Crash on malformed range",
+    "body": "`Headers.get_all` is fine, but `slice_body` answers 416 for an empty body.\n\n<!-- Please describe the problem -->",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`Headers.get_all`",
+        "quote": "`Headers.get_all`"
+      },
+      {
+        "type": "symbol_exists",
+        "text": "`slice_body`",
+        "quote": "`slice_body`"
+      }
+    ]
+  },
+  {
+    "id": "g05",
+    "class": "genuine",
+    "kind": "bugfix_pr",
+    "title": "Handle empty header values",
+    "body": "Improves `parse_headers`.\n\nAI disclosure: I used AI tools:\n- a coding assistant for the first draft.\n\nTests added.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`parse_headers`",
+        "quote": "`parse_headers`"
+      },
+      {
+        "type": "test_added",
+        "text": "Tests added",
+        "quote": "Tests added"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "tinyhttp/headers.py",
+      "tests/test_headers.py"
+    ]
+  },
+  {
+    "id": "g06",
+    "class": "genuine",
+    "kind": "feature_request",
+    "title": "Retries for Client.get",
+    "body": "`Client.get` has no retry support. A new `retry_backoff` helper would help.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`Client.get`",
+        "quote": "`Client.get`"
+      },
+      {
+        "type": "symbol_exists",
+        "text": "new `retry_backoff`",
+        "quote": "new `retry_backoff`"
+      }
+    ]
+  },
+  {
+    "id": "g07",
+    "class": "genuine",
+    "kind": "bug_report",
+    "title": "Works on Python 3.14?",
+    "body": "`Router.dispatch` raises on Python 3.14 here.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`Router.dispatch`",
+        "quote": "`Router.dispatch`"
+      },
+      {
+        "type": "version_exists",
+        "text": "Python 3.14",
+        "quote": "Python 3.14"
+      }
+    ]
+  },
+  {
+    "id": "g08",
+    "class": "genuine",
+    "kind": "bug_report",
+    "title": "Own handler crashes",
+    "body": "My `my_handler` crashes.\n```python\ndef my_handler(request):\n    return 1 / 0\n```\n`handle_bytes` answers 500.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "My `my_handler`",
+        "quote": "My `my_handler`"
+      },
+      {
+        "type": "symbol_exists",
+        "text": "`handle_bytes`",
+        "quote": "`handle_bytes`"
+      }
+    ]
+  },
+  {
+    "id": "g09",
+    "class": "genuine",
+    "kind": "security_report",
+    "title": "CRLF in set_header",
+    "body": "`Response.set_header` in `tinyhttp/response.py` does not strip CR or LF.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`Response.set_header`",
+        "quote": "`Response.set_header`"
+      },
+      {
+        "type": "file_exists",
+        "text": "`tinyhttp/response.py`",
+        "quote": "`tinyhttp/response.py`"
+      },
+      {
+        "type": "behavior",
+        "text": "does not strip CR or LF",
+        "quote": "does not strip CR or LF"
+      }
+    ]
+  },
+  {
+    "id": "g10",
+    "class": "genuine",
+    "kind": "question",
+    "title": "Is HTTP/2 planned?",
+    "body": "Thanks for this library \ud83d\udc69\u200d\ud83d\udcbb. Is HTTP/2 planned?",
+    "claims": []
+  },
+  {
+    "id": "g11",
+    "class": "genuine",
+    "kind": "bug_report",
+    "title": "Reproduction files",
+    "body": "Create `docs/conf_local.py` then call `parse_request`.",
+    "claims": [
+      {
+        "type": "file_exists",
+        "text": "`docs/conf_local.py`",
+        "quote": "`docs/conf_local.py`"
+      },
+      {
+        "type": "symbol_exists",
+        "text": "`parse_request`",
+        "quote": "`parse_request`"
+      }
+    ]
+  },
+  {
+    "id": "g12",
+    "class": "genuine",
+    "kind": "bug_report",
+    "title": "Standard library note",
+    "body": "`serialize_cookie` raises `ValueError`, and `os.path.join` is unrelated.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`serialize_cookie`",
+        "quote": "`serialize_cookie`"
+      },
+      {
+        "type": "symbol_exists",
+        "text": "`ValueError`",
+        "quote": "`ValueError`"
+      },
+      {
+        "type": "symbol_exists",
+        "text": "`os.path.join`",
+        "quote": "`os.path.join`"
+      }
+    ]
+  },
+  {
+    "id": "g13",
+    "class": "genuine",
+    "kind": "bugfix_pr",
+    "title": "Remove legacy alias",
+    "body": "Removes `parse_cookies` wrapper usage in `tinyhttp/cookies.py`.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`parse_cookies`",
+        "quote": "`parse_cookies`"
+      },
+      {
+        "type": "file_exists",
+        "text": "`tinyhttp/cookies.py`",
+        "quote": "`tinyhttp/cookies.py`"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "tinyhttp/cookies.py"
+    ]
+  },
+  {
+    "id": "g14",
+    "class": "genuine",
+    "kind": "bug_report",
+    "title": "Flag from my app",
+    "body": "Running my app with `--items` set then `encode_query` escapes the space.",
+    "claims": [
+      {
+        "type": "symbol_exists",
+        "text": "`--items`",
+        "quote": "`--items`"
+      },
+      {
+        "type": "symbol_exists",
+        "text": "`encode_query`",
+        "quote": "`encode_query`"
+      }
+    ]
+  },
+  {
+    "id": "g15",
+    "class": "genuine",
+    "kind": "dependency_pr",
+    "title": "Bump pytest",
+    "body": "Updates `pytest` in `pyproject.toml`.",
+    "claims": [
+      {
+        "type": "dependency_added",
+        "text": "`pytest`",
+        "quote": "`pytest`"
+      },
+      {
+        "type": "file_exists",
+        "text": "`pyproject.toml`",
+        "quote": "`pyproject.toml`"
+      }
+    ],
+    "is_pull_request": true,
+    "changed_files": [
+      "pyproject.toml"
+    ]
+  }
+]
