@@ -67,7 +67,7 @@ def open_pull(repo: str, scenario: dict, work: Path) -> None:
         "--body", scenario["body"], cwd=work)  # fmt: skip
 
 
-def create(repo: str, environment: dict[str, str]) -> None:
+def create_repository(repo: str, environment: dict[str, str]) -> None:
     with tempfile.TemporaryDirectory() as temporary:
         work = Path(temporary) / "repo"
         shutil.copytree(LIBRARY, work, ignore=shutil.ignore_patterns("__pycache__", ".pytest_cache", ".venv"))
@@ -78,28 +78,33 @@ def create(repo: str, environment: dict[str, str]) -> None:
         run("gh", "repo", "create", repo, "--public", "--source", str(work), "--push", cwd=work)
         run("git", "push", "-q", "origin", "v0.3.1", cwd=work)
         configure(repo, environment)
+
+
+def open_scenarios(repo: str, only: set[str] | None = None) -> None:
+    with tempfile.TemporaryDirectory() as temporary:
+        work = Path(temporary) / "repo"
+        run("gh", "repo", "clone", repo, str(work), "--", "-q")
         for scenario in SCENARIOS:
+            if only and scenario["id"] not in only:
+                continue
             if scenario["type"] == "pr":
                 open_pull(repo, scenario, work)
-            else:
-                for _ in range(scenario.get("count", 1)):
-                    run(
-                        "gh",
-                        "issue",
-                        "create",
-                        "--repo",
-                        repo,
-                        "--title",
-                        scenario["title"],
-                        "--body",
-                        scenario["body"],
-                    )
+                continue
+            for _ in range(scenario.get("count", 1)):
+                run("gh", "issue", "create", "--repo", repo, "--title", scenario["title"], "--body", scenario["body"])
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--apply", action="store_true", help="Really create the repository and scenarios.")
     parser.add_argument("--repo", help="OWNER/NAME to create.")
+    parser.add_argument(
+        "--stage",
+        choices=("all", "repo", "scenarios"),
+        default="all",
+        help="repo: create and configure only. scenarios: open them on an existing repository.",
+    )
+    parser.add_argument("--only", help="Comma-separated scenario ids, e.g. D2,D3, with --stage scenarios.")
     args = parser.parse_args()
     for scenario in SCENARIOS:
         print(f"{scenario['id']} {scenario['type']:5} expected {scenario['expected']}: {scenario['title']}")
@@ -110,7 +115,10 @@ def main() -> None:
         missing = missing_settings(environment)
         if missing:
             parser.error(f"not set: {', '.join(missing)}")
-        create(args.repo, environment)
+        if args.stage in ("all", "repo"):
+            create_repository(args.repo, environment)
+        if args.stage in ("all", "scenarios"):
+            open_scenarios(args.repo, set(args.only.split(",")) if args.only else None)
 
 
 if __name__ == "__main__":

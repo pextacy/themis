@@ -82,7 +82,7 @@ To install it on a repository, follow [`docs/DOCS.md`](docs/DOCS.md) section 2.3
 | Offline benchmark, 36 items | 0 false contradictions, 15 of 15 slop flagged, 6 of 6 injections caught | Regression check. The dataset was written alongside the rules, so this is not field accuracy |
 | Real bug reports, 110 from 10 unseen repositories | 5 of 1,328 checks wrongly `HARD` (0.38%) | Worst case: every backticked token treated as a claim. Target is zero, not yet met |
 | Real issue and PR text, 5,000 bodies from 25 repositories | 0 tainted by the sanitizer | False positives only, says nothing about catch rate |
-| Live Clerk on the first free model | 6 of 16 answered fixtures valid (gate: 95%) | Measured Nov 7, cut short by the provider's free quota. Not the model to ship. `themis bench --live` has not produced a usable run yet |
+| Live Clerk on `nemotron-3.5-super-vl:free` | 7 of 13 answered fixtures valid (gate: 95%) | Measured Nov 8, cut short by the provider's free daily quota. All six failures stopped at `finish_reason=length`: the reasoning model spent its token allowance thinking. The allowance was raised from 1,200 to 4,096 and is not yet re-measured. `themis bench --live` has not produced a usable run yet |
 
 ## Limitations
 

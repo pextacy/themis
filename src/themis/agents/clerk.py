@@ -21,7 +21,7 @@ from themis.otari.errors import OtariBudgetExceeded, OtariConfigError, OtariErro
 from themis.shield.sanitize import Sanitized, scan
 
 MAX_CLAIMS = 30
-MAX_TOKENS = 1200
+MAX_TOKENS = 4096  # Reasoning models spend part of it thinking; 1200 cut replies short
 PR_KINDS = frozenset({
     SubmissionKind.BUGFIX_PR, SubmissionKind.FEATURE_PR, SubmissionKind.DOCS_PR, SubmissionKind.DEPENDENCY_PR,
 })  # fmt: skip

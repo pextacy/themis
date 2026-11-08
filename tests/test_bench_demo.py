@@ -128,8 +128,20 @@ def test_seed_sets_the_key_over_stdin_before_the_first_issue(monkeypatch: pytest
     monkeypatch.setattr(module, "open_pull", lambda *a: commands.append(("gh", "pr", "create")))
     monkeypatch.setattr(module.shutil, "copytree", lambda *a, **k: None)
     environment = {name: "value" for name in module.VARIABLES} | {"OTARI_API_KEY": "the-key"}
-    module.create("a/b", environment)
+    module.create_repository("a/b", environment)
+    module.open_scenarios("a/b")
     assert secret["input"] == "the-key" and "the-key" not in " ".join(secret["command"])  # type: ignore[arg-type]
     first_issue = next(i for i, row in enumerate(commands) if row[:3] == ("gh", "issue", "create"))
     last_setting = max(i for i, row in enumerate(commands) if row[:2] in (("gh", "secret"), ("gh", "variable")))
     assert last_setting < first_issue
+
+
+def test_seed_opens_only_the_named_scenarios(monkeypatch: pytest.MonkeyPatch) -> None:
+    module = seed_module()
+    commands: list[tuple[str, ...]] = []
+    monkeypatch.setattr(module, "run", lambda *command, **_: commands.append(command))
+    monkeypatch.setattr(module, "open_pull", lambda _repo, scenario, _work: commands.append(("pr", scenario["id"])))
+    module.open_scenarios("a/b", {"D2", "D3"})
+    assert ("pr", "D3") in commands
+    assert sum(row[:3] == ("gh", "issue", "create") for row in commands) == 1
+    assert not any(row[:2] == ("gh", "secret") for row in commands)

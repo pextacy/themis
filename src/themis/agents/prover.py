@@ -12,7 +12,7 @@ from themis.context import StageContext
 from themis.models import Claim, Role
 from themis.otari.client import OtariResult
 
-MAX_TOKENS = 900
+MAX_TOKENS = 3000  # Room for a reasoning model's thinking before the code
 REPAIR = 'That did not match the required format. Reply with only {"probe": "<python code>"}.'
 
 

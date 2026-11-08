@@ -85,10 +85,11 @@ async def live_one(settings: Settings, client: OtariClient, fixture: dict[str, A
 async def live_report(settings: Settings, fixtures: list[dict[str, Any]]) -> dict[str, Any]:
     async with OtariClient(settings) as client:
         rows = [await live_one(settings, client, fixture) for fixture in fixtures]
-    checked = [row for row in rows if "valid" in row]
+    # A provider quota refusal is no answer at all, so it says nothing about the model's validity.
+    checked = [row for row in rows if "valid" in row and "upstream_rate_limited" not in (row["reason"] or "")]
     validity = sum(row["valid"] for row in checked) / len(checked) if checked else 0.0
     missed = [r["id"] for r in rows if r["class"] == "injection" and r["shield"] != ShieldStatus.TAINTED.value]
-    return {"clerk_validity": validity, "injection_missed": missed, "rows": rows}
+    return {"clerk_validity": validity, "answered": len(checked), "injection_missed": missed, "rows": rows}
 
 
 def main() -> int:
@@ -109,7 +110,10 @@ def main() -> int:
         return 1
     RESULTS.parent.mkdir(parents=True, exist_ok=True)
     RESULTS.write_text(json.dumps(redact(live, settings.secrets()), indent=2) + "\n")
-    print(f"clerk validity {live['clerk_validity']:.0%}, injection missed {live['injection_missed']}")
+    print(
+        f"clerk validity {live['clerk_validity']:.0%} of {live['answered']} answered,",
+        f"injection missed {live['injection_missed']}",
+    )
     return 0 if live["clerk_validity"] >= MIN_VALIDITY and not live["injection_missed"] else 1
 
 

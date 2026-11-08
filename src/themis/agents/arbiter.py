@@ -15,7 +15,7 @@ from themis.context import StageContext
 from themis.models import Check, Claim, Role, Verdict, VerdictValue
 from themis.otari.errors import OtariConfigError, OtariError
 
-MAX_TOKENS = 300
+MAX_TOKENS = 1200  # Room for a reasoning model's thinking before the reply
 TEMPLATES = {
     VerdictValue.EVIDENCED: "The main claims were reproduced or confirmed, so this is ready for review.",
     VerdictValue.PLAUSIBLE: "Most claims checked out and nothing was contradicted.",
